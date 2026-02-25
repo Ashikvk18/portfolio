@@ -34,3 +34,6 @@ next-env.d.ts
 
 # test files
 public/test-audio.html
+
+# large media files (videos too big for GitHub)
+public/videos/
