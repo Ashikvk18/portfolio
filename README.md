@@ -19,7 +19,7 @@ A cinematic, Harry Potter-themed developer portfolio built with production-level
 
 <br />
 
-[🔮 **Live Demo**](#) · [📜 **Source Code**](https://github.com/Ashikvk18/portfolio) · [⚡ **Report Bug**](https://github.com/Ashikvk18/portfolio/issues)
+[🔮 **Live Demo**](https://portfolio-opal-rho-49.vercel.app/) · [📜 **Source Code**](https://github.com/Ashikvk18/portfolio) · [⚡ **Report Bug**](https://github.com/Ashikvk18/portfolio/issues)
 
 </div>
 
@@ -74,13 +74,16 @@ A secondary canvas layer rendering real-time post-processing effects:
 
 ### 🎥 Video Background System — `VideoBackground.tsx`
 
-Optional cinematic video loop layer with:
+Cinematic video loop layer streamed from GitHub Releases CDN via a Next.js API proxy:
 
 ```
-▸ Automatic detection of video files in /public/videos/
-▸ Crossfade transitions between scenes
-▸ Cinematic color grading (CSS filters)
-▸ Graceful fallback to canvas when no videos present
+▸ 4 dark fantasy video scenes streamed via /api/video/[name] proxy route
+▸ GitHub Releases CDN → Next.js API → Browser (bypasses CORS)
+▸ Range request support for efficient streaming & seeking
+▸ Crossfade transitions between scenes every 12 seconds
+▸ Cinematic color grading (brightness, saturation, contrast, hue-rotate)
+▸ Automatic availability detection with graceful canvas fallback
+▸ Immutable cache headers (1 year) for repeat visits
 ```
 
 <br />
@@ -135,6 +138,7 @@ portfolio/
 │
 ├── src/
 │   ├── app/
+│   │   ├── api/video/[name]/route.ts  # 🎥 Video proxy (GitHub Releases → browser)
 │   │   ├── globals.css     # Custom utilities, gradients, animations
 │   │   ├── layout.tsx      # Root layout with fonts
 │   │   └── page.tsx        # Main composition layer
@@ -187,11 +191,13 @@ npm run dev
 
 Open **http://localhost:3000** — scroll, click, and listen.
 
-### Optional: Add Video Backgrounds
+### Video Backgrounds
 
-Place `.mp4` / `.mov` files in `public/videos/` named `scene1.mp4`, `scene2.mov`, etc. The system auto-detects and plays them with crossfade transitions.
+Videos are hosted as [GitHub Release assets](https://github.com/Ashikvk18/portfolio/releases/tag/v1.0.0) and streamed through a Next.js API proxy at `/api/video/[name]`. This avoids CORS issues and keeps the build lightweight.
 
-### Optional: Add Background Music
+To add/replace videos: upload new files to a GitHub Release, then update the `ALLOWED_FILES` array in `src/app/api/video/[name]/route.ts`.
+
+### Background Music
 
 Place `.mp3` files in `public/audio/` named `track1.mp3`, `track2.mp3`, etc. Music auto-plays on first user interaction.
 
@@ -212,6 +218,28 @@ Place `.mp3` files in `public/audio/` named `track1.mp3`, `track2.mp3`, etc. Mus
 | **Fonts** | Playfair Display (serif) + Inter (sans) + JetBrains Mono |
 | **Icons** | Lucide React |
 | **Typing Effect** | react-type-animation |
+| **Deployment** | Vercel (auto-deploy from GitHub) |
+| **Video CDN** | GitHub Releases + Next.js API proxy |
+
+<br />
+
+---
+
+## 🌐 Deployment
+
+The site is deployed on **Vercel** with automatic deploys on every push to `main`.
+
+Video files are too large for Vercel's build (~230MB total), so they're stored as **GitHub Release assets** and streamed through a serverless API proxy route:
+
+```
+Browser → /api/video/scene1.mp4 → Vercel Serverless Function → GitHub Releases CDN → Stream back
+```
+
+This gives you:
+- **Zero build size impact** — videos aren't in the repo or build
+- **Global CDN caching** — immutable cache headers for fast repeat loads
+- **Range request support** — efficient streaming without downloading entire files
+- **Free hosting** — GitHub Releases has no bandwidth limits for public repos
 
 <br />
 
