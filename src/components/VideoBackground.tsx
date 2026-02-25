@@ -11,14 +11,12 @@ import { useEffect, useRef, useState, useCallback } from "react";
 //   - https://pixabay.com/videos/search/lightning%20storm/
 //   - https://pexels.com/search/videos/dark%20forest/
 
-// Videos hosted on GitHub Releases (too large for Vercel builds)
-const GITHUB_RELEASE = "https://github.com/Ashikvk18/portfolio/releases/download/v1.0.0";
-
+// Videos proxied through Next.js API route (GitHub Releases → /api/video/[name])
 const VIDEO_SOURCES = [
-  `${GITHUB_RELEASE}/scene1.mp4`,
-  `${GITHUB_RELEASE}/scene2.mov`,
-  `${GITHUB_RELEASE}/scene3.mp4`,
-  `${GITHUB_RELEASE}/scene4.mp4`,
+  "/api/video/scene1.mp4",
+  "/api/video/scene2.mov",
+  "/api/video/scene3.mp4",
+  "/api/video/scene4.mp4",
 ];
 
 const SCENE_DURATION = 12000;
@@ -32,28 +30,14 @@ export default function VideoBackground() {
   const frameRef = useRef(0);
   const indexRef = useRef(0);
 
-  // Check if any video file exists (use GET with range header for cross-origin GitHub URLs)
+  // Check if any video file exists via the API proxy
   useEffect(() => {
     (async () => {
       for (const src of VIDEO_SOURCES) {
         try {
-          const res = await fetch(src, { method: "GET", headers: { Range: "bytes=0-0" } });
-          if (res.ok || res.status === 206) { setVideosAvailable(true); return; }
-        } catch {
-          // Cross-origin may block fetch — try loading a video element directly
-          try {
-            const v = document.createElement("video");
-            v.preload = "metadata";
-            await new Promise<void>((resolve, reject) => {
-              v.onloadedmetadata = () => resolve();
-              v.onerror = () => reject();
-              v.src = src;
-              setTimeout(reject, 8000);
-            });
-            setVideosAvailable(true);
-            return;
-          } catch { /* skip */ }
-        }
+          const res = await fetch(src, { method: "HEAD" });
+          if (res.ok) { setVideosAvailable(true); return; }
+        } catch { /* skip */ }
       }
     })();
   }, []);
@@ -185,7 +169,6 @@ export default function VideoBackground() {
         muted
         loop
         playsInline
-        crossOrigin="anonymous"
         className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[2000ms]"
         style={{
           opacity: isVideo1Active ? 1 : 0,
@@ -197,7 +180,6 @@ export default function VideoBackground() {
         muted
         loop
         playsInline
-        crossOrigin="anonymous"
         className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[2000ms]"
         style={{
           opacity: isVideo1Active ? 0 : 1,
