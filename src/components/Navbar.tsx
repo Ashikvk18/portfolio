@@ -63,26 +63,13 @@ export default function Navbar() {
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14 sm:h-16">
-            <div className="flex items-center gap-3">
-              <button
-                className="md:hidden p-3 -ml-2 text-gray-200 hover:text-white active:scale-95 transition-all relative z-10"
-                onClick={() => { playClick(); setIsMobileOpen(!isMobileOpen); }}
-                aria-label="Toggle menu"
-              >
-                {isMobileOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-
-              <motion.a
-                href="#home"
-                className="text-base sm:text-lg font-serif font-bold text-gradient-sorrow tracking-wide text-glow-primary"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onMouseEnter={playHover}
-                onClick={playClick}
-              >
-                Ashik.
-              </motion.a>
-            </div>
+            <button
+              className="md:hidden p-3 -ml-2 text-gray-200 hover:text-white active:scale-95 transition-all relative z-10"
+              onClick={() => { playClick(); setIsMobileOpen(!isMobileOpen); }}
+              aria-label="Toggle menu"
+            >
+              {isMobileOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
 
             <div className="hidden md:flex items-center space-x-1">
               {navLinks.map((link) => (
