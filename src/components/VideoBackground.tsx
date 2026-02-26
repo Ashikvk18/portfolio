@@ -11,12 +11,12 @@ import { useEffect, useRef, useState, useCallback } from "react";
 //   - https://pixabay.com/videos/search/lightning%20storm/
 //   - https://pexels.com/search/videos/dark%20forest/
 
-// Videos proxied through Next.js API route (GitHub Releases → /api/video/[name])
+// Direct GitHub Releases links (bypass Vercel bandwidth limits)
 const VIDEO_SOURCES = [
-  "/api/video/scene1.mp4",
-  "/api/video/scene2.mov",
-  "/api/video/scene3.mp4",
-  "/api/video/scene4.mp4",
+  "https://github.com/Ashikvk18/portfolio/releases/download/v1.0.0/scene1.mp4",
+  "https://github.com/Ashikvk18/portfolio/releases/download/v1.0.0/scene2.mov",
+  "https://github.com/Ashikvk18/portfolio/releases/download/v1.0.0/scene3.mp4",
+  "https://github.com/Ashikvk18/portfolio/releases/download/v1.0.0/scene4.mp4",
 ];
 
 const SCENE_DURATION = 12000;
