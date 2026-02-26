@@ -13,10 +13,10 @@ import { useEffect, useRef, useState, useCallback } from "react";
 
 // Direct GitHub Releases links (bypass Vercel bandwidth limits)
 const VIDEO_SOURCES = [
+  "https://github.com/Ashikvk18/portfolio/releases/download/v1.0.0/scene4.mp4",
   "https://github.com/Ashikvk18/portfolio/releases/download/v1.0.0/scene1.mp4",
   "https://github.com/Ashikvk18/portfolio/releases/download/v1.0.0/scene2.mov",
   "https://github.com/Ashikvk18/portfolio/releases/download/v1.0.0/scene3.mp4",
-  "https://github.com/Ashikvk18/portfolio/releases/download/v1.0.0/scene4.mp4",
 ];
 
 const SCENE_DURATION = 12000;
