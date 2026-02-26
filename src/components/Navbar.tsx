@@ -63,16 +63,26 @@ export default function Navbar() {
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14 sm:h-16">
-            <motion.a
-              href="#home"
-              className="text-base sm:text-lg font-serif font-bold text-gradient-sorrow tracking-wide text-glow-primary"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onMouseEnter={playHover}
-              onClick={playClick}
-            >
-              Ashik.
-            </motion.a>
+            <div className="flex items-center gap-3">
+              <button
+                className="md:hidden p-3 -ml-2 text-gray-200 hover:text-white active:scale-95 transition-all relative z-10"
+                onClick={() => { playClick(); setIsMobileOpen(!isMobileOpen); }}
+                aria-label="Toggle menu"
+              >
+                {isMobileOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+
+              <motion.a
+                href="#home"
+                className="text-base sm:text-lg font-serif font-bold text-gradient-sorrow tracking-wide text-glow-primary"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onMouseEnter={playHover}
+                onClick={playClick}
+              >
+                Ashik.
+              </motion.a>
+            </div>
 
             <div className="hidden md:flex items-center space-x-1">
               {navLinks.map((link) => (
@@ -98,14 +108,6 @@ export default function Navbar() {
                 </a>
               ))}
             </div>
-
-            <button
-              className="md:hidden p-3 -mr-2 text-gray-200 hover:text-white active:scale-95 transition-all relative z-10"
-              onClick={() => { playClick(); setIsMobileOpen(!isMobileOpen); }}
-              aria-label="Toggle menu"
-            >
-              {isMobileOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
           </div>
         </div>
       </motion.nav>
@@ -124,11 +126,11 @@ export default function Navbar() {
               onClick={() => setIsMobileOpen(false)}
             />
             <motion.div
-              initial={{ x: "100%" }}
+              initial={{ x: "-100%" }}
               animate={{ x: 0 }}
-              exit={{ x: "100%" }}
+              exit={{ x: "-100%" }}
               transition={{ type: "spring", bounce: 0, duration: 0.5 }}
-              className="absolute right-0 top-0 h-full w-[280px] max-w-[80vw] bg-void-900/95 backdrop-blur-sm border-l border-white/[0.03] p-6 pt-6"
+              className="absolute left-0 top-0 h-full w-[280px] max-w-[80vw] bg-void-900/95 backdrop-blur-sm border-r border-white/[0.03] p-6 pt-6"
             >
               {/* Close button */}
               <div className="flex items-center justify-between mb-8">
