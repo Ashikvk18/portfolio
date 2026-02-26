@@ -14,6 +14,7 @@ const projects = [
     date: "2025",
     award: null,
     github: "https://github.com/Ashikvk18/DPI",
+    demo: "https://dpi-dashboard.onrender.com",
     icon: Shield,
     gradient: "from-cyan-500/20 via-blue-600/20 to-indigo-700/20",
     iconColor: "text-cyan-400",
@@ -27,6 +28,7 @@ const projects = [
     date: "2025",
     award: null,
     github: "https://github.com/Ashikvk18/scam-call-ml",
+    demo: null,
     icon: Brain,
     gradient: "from-purple-500/20 via-fuchsia-600/20 to-pink-700/20",
     iconColor: "text-purple-400",
@@ -40,6 +42,7 @@ const projects = [
     date: "Apr. 2025",
     award: null,
     github: "https://github.com/Ashikvk18",
+    demo: null,
     icon: Dumbbell,
     gradient: "from-amber-500/20 via-orange-600/20 to-red-700/20",
     iconColor: "text-amber-400",
@@ -53,6 +56,7 @@ const projects = [
     date: "Oct. 2024",
     award: "TigerHacks — Hackers' Choice Award",
     github: "https://github.com/Ashikvk18",
+    demo: null,
     icon: Leaf,
     gradient: "from-emerald-500/20 via-green-600/20 to-teal-700/20",
     iconColor: "text-emerald-400",
@@ -145,15 +149,17 @@ export default function Projects() {
                       <Github size={13} strokeWidth={1.5} />
                       Source
                     </a>
+                    {project.demo && (
                     <a
-                      href={project.github}
+                      href={project.demo}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-1.5 text-gray-500 hover:text-primary/80 text-xs transition-colors duration-500"
                     >
                       <ExternalLink size={13} strokeWidth={1.5} />
-                      Demo
+                      Live Demo
                     </a>
+                    )}
                   </div>
                 </div>
               </div>
