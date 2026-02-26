@@ -26,21 +26,9 @@ export default function VideoBackground() {
   const video2Ref = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isVideo1Active, setIsVideo1Active] = useState(true);
-  const [videosAvailable, setVideosAvailable] = useState(false);
+  const [videosAvailable, setVideosAvailable] = useState(true);
   const frameRef = useRef(0);
   const indexRef = useRef(0);
-
-  // Check if any video file exists via the API proxy
-  useEffect(() => {
-    (async () => {
-      for (const src of VIDEO_SOURCES) {
-        try {
-          const res = await fetch(src, { method: "HEAD" });
-          if (res.ok) { setVideosAvailable(true); return; }
-        } catch { /* skip */ }
-      }
-    })();
-  }, []);
 
   // Video crossfade cycling
   useEffect(() => {
