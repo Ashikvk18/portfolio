@@ -127,19 +127,44 @@ function ensureMusic() {
 function setupAutoplay() {
   ensureMusic();
 
-  const events = ["click", "scroll", "keydown", "touchstart", "touchmove", "mousemove", "pointerdown", "pointerup"];
+  // These are "user activation" events that browsers trust for audio playback
+  const events = ["click", "keydown", "touchstart", "touchend", "pointerdown", "pointerup", "mousedown"];
+  const cleanup = () => {
+    events.forEach((e) => document.removeEventListener(e, handler, true));
+    // Remove overlay if it exists
+    const overlay = document.getElementById("audio-trigger-overlay");
+    if (overlay) overlay.remove();
+  };
   const handler = () => {
     if (!globalAudio) ensureMusic();
     if (globalAudio && !musicStarted) {
       globalAudio.play().then(() => {
         musicStarted = true;
-        events.forEach((e) => document.removeEventListener(e, handler));
+        cleanup();
       }).catch(() => {});
     } else if (musicStarted) {
-      events.forEach((e) => document.removeEventListener(e, handler));
+      cleanup();
     }
   };
-  events.forEach((e) => document.addEventListener(e, handler, { passive: true }));
+  // Use capture phase so we intercept the event before anything else
+  events.forEach((e) => document.addEventListener(e, handler, { capture: true, passive: true }));
+
+  // Create an invisible full-screen overlay to guarantee the first touch/tap triggers audio
+  // This catches taps that might land on non-interactive areas
+  const overlay = document.createElement("div");
+  overlay.id = "audio-trigger-overlay";
+  overlay.style.cssText = "position:fixed;inset:0;z-index:9999;opacity:0;cursor:default;";
+  overlay.addEventListener("touchstart", handler, { passive: true });
+  overlay.addEventListener("click", (e) => {
+    handler();
+    // Let the click pass through to elements below
+    overlay.remove();
+    const el = document.elementFromPoint(e.clientX, e.clientY) as HTMLElement;
+    if (el) el.click();
+  });
+  // Auto-remove after 10 seconds if music already started via other means
+  setTimeout(() => { if (overlay.parentNode) overlay.remove(); }, 10000);
+  document.body.appendChild(overlay);
 }
 
 export default function SoundProvider({ children }: { children: React.ReactNode }) {
