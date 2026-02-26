@@ -127,7 +127,7 @@ function ensureMusic() {
 function setupAutoplay() {
   ensureMusic();
 
-  const events = ["click", "scroll", "keydown", "touchstart", "mousemove", "pointerdown"];
+  const events = ["click", "scroll", "keydown", "touchstart", "touchmove", "mousemove", "pointerdown", "pointerup"];
   const handler = () => {
     if (!globalAudio) ensureMusic();
     if (globalAudio && !musicStarted) {
