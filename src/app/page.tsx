@@ -30,9 +30,11 @@ export default function Home() {
         <div className="fog-layer fog-layer-3" />
         <CinematicOverlay />
 
+        {/* Navbar — outside content z-stack so it stays above overlay canvases */}
+        <Navbar />
+
         {/* Content */}
         <div className="relative z-10">
-          <Navbar />
           <Hero />
           <About />
           <Skills />

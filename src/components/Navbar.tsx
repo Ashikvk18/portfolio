@@ -55,7 +55,7 @@ export default function Navbar() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
+        className={`fixed top-0 left-0 right-0 z-[70] transition-all duration-700 ${
           isScrolled
             ? "glass-dark shadow-2xl shadow-black/40"
             : "bg-transparent"
@@ -100,11 +100,11 @@ export default function Navbar() {
             </div>
 
             <button
-              className="md:hidden p-2 -mr-2 text-gray-400 hover:text-gray-200 transition-colors"
+              className="md:hidden p-3 -mr-2 text-gray-200 hover:text-white active:scale-95 transition-all relative z-10"
               onClick={() => { playClick(); setIsMobileOpen(!isMobileOpen); }}
               aria-label="Toggle menu"
             >
-              {isMobileOpen ? <X size={22} /> : <Menu size={22} />}
+              {isMobileOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>
@@ -117,7 +117,7 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 md:hidden"
+            className="fixed inset-0 z-[75] md:hidden"
           >
             <div
               className="absolute inset-0 bg-void-950/90 backdrop-blur-md"
