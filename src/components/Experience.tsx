@@ -2,9 +2,21 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { Github } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 
 const experiences = [
+  {
+    title: "Virtual Software Engineer",
+    company: "JPMorgan Chase",
+    location: "Remote",
+    period: "Jul. 2026",
+    points: [
+      "Built a full-stack transaction processing system using Java 17, Spring Boot, Kafka, H2, and Spring Data JPA, implementing 5 major features from Kafka consumption to REST balance query endpoints.",
+      "Developed 3 core integrations using Spring Kafka, RestTemplate, and REST APIs while designing JPA user and transaction entities with validation for sender, recipient, and balance checks.",
+    ],
+    github: "https://github.com/Ashikvk18/forage-midas.git",
+  },
   {
     title: "Zuckerman Sustainability Software Engineering Intern",
     company: "Truman State University — Office of Sustainability",
@@ -79,6 +91,17 @@ export default function Experience() {
                     <div className="flex flex-col sm:items-end gap-0.5 text-[10px] text-gray-500 font-mono">
                       <span>{exp.period}</span>
                       <span>{exp.location}</span>
+                      {exp.github && (
+                        <a
+                          href={exp.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1 text-gray-500 hover:text-accent/80 transition-colors duration-500 mt-1"
+                        >
+                          <Github size={11} strokeWidth={1.5} />
+                          <span>GitHub</span>
+                        </a>
+                      )}
                     </div>
                   </div>
 
