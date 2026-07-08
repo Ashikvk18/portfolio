@@ -388,4 +388,6 @@ Every design decision serves the **cinematic dark fantasy** aesthetic:
 
 *"After all this time?" — "Always."*
 
+<!-- Last updated: July 8, 2026 -->
+
 </div>
